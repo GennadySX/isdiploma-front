@@ -11,7 +11,7 @@ read -p " enter commit message: " mess
 
 git add .
 
-git commit -m "isdiploma-front --$d -$stamp  :$mess"
+git commit -m "adsme-react --$d -$stamp  :$mess"
 
 
 git push -u origin master
