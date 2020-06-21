@@ -1,0 +1,74 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "users": [
+                0,
+                1
+            ],
+            "lastMessageTime": "18:20",
+            "messages": [
+                {
+                    "sender": 0,
+                    "time": "09:25",
+                    "text": "Что вы думаете о наших планах по запуску этого продукта?"
+                },
+                {
+                    "sender": 0,
+                    "time": "09:29",
+                    "text": "Мне кажется, что вы запланировали многое до истечения срока. Я бы посоветовал вам отодвинуть срок, чтобы у вас было время запустить успешную рекламную кампанию."
+                },
+                {
+                    "sender": 0,
+                    "time": "09:36",
+                    "text": "Как вы думаете, мы должны двигаться вперед с этим проектом? Как вы знаете, мы должны представить его нашим клиентам на следующей неделе."
+                },
+                {
+                    "sender": 1,
+                    "time": "10:12",
+                    "text": "Я бы посоветовала вам обсудить это с рекламной командой."
+                },
+                {
+                    "sender": 1,
+                    "time": "18:20",
+                    "text": "Я сейчас очень занята и, помимо всего прочего, сегодня я забыла свой зонтик."
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "users": [
+                0,
+                4
+            ],
+            "lastMessageTime": "10:20",
+            "messages": [
+                {
+                    "sender": 0,
+                    "time": "09:25",
+                    "text": "What do you think about our plans for this product launch?"
+                },
+                {
+                    "sender": 4,
+                    "time": "09:29",
+                    "text": "It looks to me like you have a lot planned before your deadline. I would suggest you push your deadline back so you have time to run a successful advertising campaign."
+                },
+                {
+                    "sender": 4,
+                    "time": "09:36",
+                    "text": "How do you think we should move forward with this project? As you know, we are expected to present it to our clients next week."
+                },
+                {
+                    "sender": 0,
+                    "time": "10:12",
+                    "text": "I would suggest you discuss this further with the advertising team."
+                },
+                {
+                    "sender": 4,
+                    "time": "10:30",
+                    "text": "I am very busy at the moment and on top of everything, I forgot my umbrella today."
+                }
+            ]
+        }
+    ]
+}
