@@ -1,34 +1,5 @@
 const data = [
   {
-    id: "dashboards",
-    icon: "simple-icon-home",
-    label: "menu.dashboards",
-    to: "/app/dashboards",
-    title: "Главный",
-    subs: [
-      {
-        icon: "simple-icon-briefcase",
-        label: "menu.default",
-        to: "/app/dashboards/default"
-      },
-      {
-        icon: "simple-icon-pie-chart",
-        label: "menu.analytics",
-        to: "/app/dashboards/analytics"
-      },
-      {
-        icon: "simple-icon-basket-loaded",
-        label: "menu.ecommerce",
-        to: "/app/dashboards/ecommerce"
-      },
-      {
-        icon: "simple-icon-doc",
-        label: "menu.content",
-        to: "/app/dashboards/content"
-      }
-    ]
-  },
-  {
     id: "chat_page",
     icon: "simple-icon-bubbles",
     label: "menu.chat_page",
