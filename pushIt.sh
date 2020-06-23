@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
+d=`date +"%d-%m"`
+h=`date +"%H"`
+
+
+read -p " commit -stamp: " stamp
+
+read -p " enter commit message: " mess
 
 
 git add .
 
-read -p "Your nickname: " user
+git commit -m "isdiploma-react --$d -$stamp  :$mess"
 
-read -p "Commit message: " message
 
-git commit -m "maks-chat --user:$user  :$message"
-
-read  -p "Branch: " branch
-
-read  -p "Role: " role
-
-git push $branch $role
+git push -u origin master
