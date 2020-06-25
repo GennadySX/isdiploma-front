@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
 
 const ChatHeading = ({ name, thumb, lastSeenDate }) => {
+
+
+
   return (
     <Fragment>
       <div className="d-flex flex-row chat-heading">

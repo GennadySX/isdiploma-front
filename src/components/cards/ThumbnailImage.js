@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 const ThumbnailImage = (props) => {
-    const { alt, src, className, rounded, small } = props;
+    const { alt, src, className, rounded, small, style } = props;
   return (
     <img
       alt={alt}

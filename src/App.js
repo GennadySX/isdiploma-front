@@ -17,15 +17,20 @@ import app from "./views/app";
 import user from "./views/user";
 import error from "./views/error";
 
-const AuthRoute = ({ component: Component, authUser, ...rest }) => (
+import {Api} from "./constants/API";
+import openSocket from "socket.io-client";
+const token = localStorage.getItem('token')
+
+const AuthRoute = ({ component: Component, authUser,  client, ...rest }) => (
   <Route
     {...rest}
     render={props =>
       authUser ? (
-        <Component {...props} />
+        <Component {...props}  client={client}/>
       ) : (
         <Redirect
           to={{
+              client: client,
             pathname: "/user/login",
             state: { from: props.location }
           }}
@@ -36,6 +41,15 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => (
 );
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ioSocket:  null,
+
+            token: token
+        }
+    }
+
   render() {
     const { locale, loginUser } = this.props;
     const currentAppLocale = AppLocale[locale];
@@ -51,7 +65,7 @@ class App extends Component {
             {isMultiColorActive && <ColorSwitcher />}
             <Router>
               <Switch>
-                <AuthRoute path="/app" authUser={loginUser} component={app} />
+                <AuthRoute path="/app" authUser={loginUser} component={app} client={this.state.ioSocket} />
                 <Route path="/user" component={user} />
                 <Route path="/error" exact component={error} />
                 <Route path="/" exact component={main} />

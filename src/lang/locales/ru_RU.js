@@ -35,6 +35,27 @@ Table of Contents
 */
 
 module.exports = {
+
+  "profile.your-data": 'Ваши данные',
+  "profile.birth-date": 'День рождения',
+  "profile.save": 'Сохранить',
+
+
+
+  "chat.new": 'Создать',
+
+
+
+  "project.title": 'Название проекта',
+  "project.add-new-title": "Добавить новый проект",
+  "project.create-btn": "Создать новый проект",
+  "project.cancel-btn": "Отменить",
+  "project.status": "Статус",
+  "project.all": "Все проекты",
+  "project.active": "Активные проекты",
+  "project.completed": "Завершены проекты",
+  "project.description": "Описание проекта",
+
   /* 01.General */
   "general.copyright": "Gogo React © 2018 All Rights Reserved.",
 
@@ -43,14 +64,24 @@ module.exports = {
   "user.register": "Зарегистрироваться",
   "user.forgot-password": "Забыли пароль",
   "user.email": "E-mail",
-  "user.password": "пароль",
+  "user.login": "Логин",
+  "user.password": "Пароль",
+  "user.password_confirm": "Подтвердить пароль",
   "user.forgot-password-question": "Забыли пароль?",
   "user.fullname": "ФИО",
+  "user.profile": "Профиль",
   "user.login-button": "Войти",
   "user.register-button": "Зарегистрироваться",
   "user.reset-password-button": "Сбросить",
   "user.buy": "Купить",
   "user.username": "Имя пользователя",
+
+
+  /* 03.Menu */
+  "menu.tasks": "Задачи",
+  "menu.profile": "Профиль",
+  "menu.logout": "Выйти",
+
 
   /* 03.Menu */
   "menu.app": "Главный",
@@ -214,8 +245,9 @@ module.exports = {
 
   /* 06.01.Chat */
   "chat.messages": "Сообщение",
-  "chat.contacts": "Контакты",
-  "chat.saysomething": "Сообщение..",
+  "chat.contacts": "Друзей",
+  "chat.groups": "Группы",
+  "chat.saysomething": "Введите текст сообщения...",
 
 
   /* 06.02.Survey */

@@ -6,12 +6,14 @@ import { connect } from "react-redux";
 import { loginUser } from "../../redux/actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
+import axios from 'axios'
+import {Api} from "../../constants/API";
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com",
-      password: "gogo123"
+      login: "gennadysx",
+      password: "unlockme"
     };
   }
   onUserLogin() {
@@ -19,6 +21,19 @@ class Login extends Component {
       this.props.loginUser(this.state, this.props.history);
     }
   }
+
+
+
+  loginIt() {
+    axios.post(Api.login, this.state).then(res => {
+      if (res.data && res.data.token) {
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('user', JSON.stringify(res.data.user))
+        window.location.href ='/'
+      }
+    })
+  }
+
 
   render() {
     return (
@@ -31,10 +46,10 @@ class Login extends Component {
                 Пожалуйста, используйте ваши учетные данные для входа.
                 <br />
                 Если у вас нет аккуанта,
-                <NavLink to={`/register`} className="white">
-                  Зарегиструйтесь
+                <NavLink to={`/user/register`} className="white">
+                  <h2>Зарегиструйтесь</h2> пожалуйста.
                 </NavLink>
-                пожалуйста.
+
               </p>
             </div>
             <div className="form-side">
@@ -45,25 +60,26 @@ class Login extends Component {
               </CardTitle>
               <Form>
                 <Label className="form-group has-float-label mb-4">
-                  <Input type="email" defaultValue={this.state.email} />
+                  <Input type="text" defaultValue={this.state.login} />
                   <IntlMessages id="user.email" />
                 </Label>
                 <Label className="form-group has-float-label mb-4">
-                  <Input type="password" />
+                  <Input type="password"
+                         defaultValue={this.state.password}
+                  />
                   <IntlMessages
                     id="user.password"
-                    defaultValue={this.state.password}
                   />
                 </Label>
                 <div className="d-flex justify-content-between align-items-center">
-                  <NavLink to={`/forgot-password`}>
-                    <IntlMessages id="user.forgot-password-question" />
+                  <NavLink to={`/user/register`}>
+                    <IntlMessages id="user.register" />
                   </NavLink>
                   <Button
                     color="primary"
                     className="btn-shadow"
                     size="lg"
-                    onClick={() => this.onUserLogin()}
+                    onClick={() => this.loginIt()}
                   >
                     <IntlMessages id="user.login-button" />
                   </Button>
@@ -81,9 +97,4 @@ const mapStateToProps = ({ authUser }) => {
   return { user, loading };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    loginUser
-  }
-)(Login);
+export default Login

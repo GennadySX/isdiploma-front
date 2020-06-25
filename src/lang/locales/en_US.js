@@ -38,6 +38,37 @@ module.exports = {
   /* 01.General */
   "general.copyright": "Gogo React © 2018 All Rights Reserved.",
 
+
+
+  "chat.groups": "Groups",
+
+
+  "profile.your-data": 'Your Info',
+  "profile.birth-date": 'Birthday',
+  "profile.save": 'Save',
+
+
+
+  "chat.new": 'Create',
+
+
+
+  "project.title": 'The name of the project',
+  "project.add-new-title": "Add New Project",
+  "project.create-btn": "Create a new project",
+  "project.cancel-btn": "Cancel",
+  "project.status": "Status",
+  "project.all": "All projects",
+  "project.active": "Active projects",
+  "project.completed": "Projects completed",
+  "project.description": "Project Description",
+
+
+  /* 02.User Login, Logout, Register */
+  "user.login": "Login",
+  "user.password_confirm": "Confirm password",
+  "user.profile": "Profile",
+
   /* 02.User Login, Logout, Register */
   "user.login-title": "Login",
   "user.register": "Register",
@@ -53,6 +84,14 @@ module.exports = {
   "user.username": "Username",
 
   /* 03.Menu */
+  "menu.chat_page": "Chat",
+  "menu.projects": "Projects",
+  "menu.tasks": "Tasks",
+  "menu.profile": "Profile",
+  "menu.logout": "Logout",
+
+
+
   "menu.app": "Home",
   "menu.dashboards": "Dashboards",
   "menu.default": "Default",
@@ -73,7 +112,7 @@ module.exports = {
   "menu.todo": "To-do List",
   "menu.survey": "Survey",
   "menu.chat": "Chat",
-  "menu.ui": "UI",
+
   "menu.alerts": "Alerts",
   "menu.badges": "Badges",
   "menu.buttons": "Buttons",

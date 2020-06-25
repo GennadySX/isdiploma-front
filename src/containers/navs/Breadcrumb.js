@@ -15,11 +15,11 @@ const getUrl = (path, sub, index) => {
   }
 };
 
-const BreadcrumbContainer = ({ heading, match }) => {
+const BreadcrumbContainer = ({ heading, match, single }) => {
   return (
     <Fragment>
       {heading && <h1><IntlMessages id={heading}/></h1>}
-      <BreadcrumbItems match={match} />
+      {single ? null :  <BreadcrumbItems match={match} />}
     </Fragment>
   );
 };
@@ -36,7 +36,7 @@ export const BreadcrumbItems = ({ match }) => {
         {paths.map((sub, index) => {
           return (
             <BreadcrumbItem key={index} active={paths.length === index + 1}>
-              {paths.length !== index + 1 ? (
+              {paths.length  !== index + 1 ? (
                 <NavLink to={"/" + getUrl(path, sub, index)}>
                   {getMenuTitle(sub)}
                 </NavLink>

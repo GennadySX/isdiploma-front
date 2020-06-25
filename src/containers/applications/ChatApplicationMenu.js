@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { injectIntl } from "react-intl";
-import { Nav, TabContent, TabPane, CardHeader, NavItem } from "reactstrap";
+import {Nav, TabContent, TabPane, CardHeader, NavItem, CardBody} from "reactstrap";
 import { NavLink } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import classnames from "classnames";
 
 import IntlMessages from "../../helpers/IntlMessages";
 import ApplicationMenu from "../../components/common/ApplicationMenu";
+import StateButton from "../../components/StateButton";
 
-import {
-  changeConversation,
-  createConversation,
-  searchContact
-} from "../../redux/actions";
+
 
 class ChatApplicationMenu extends Component {
   constructor(props) {
@@ -21,6 +18,8 @@ class ChatApplicationMenu extends Component {
     this.state = {
       searchKey: ""
     };
+
+    console.log('user is', this.props.user)
   }
   toggleAppMenu = tab => {
     if (this.props.activeTab !== tab) {
@@ -32,66 +31,26 @@ class ChatApplicationMenu extends Component {
   };
 
   handleSearchContact = keyword => {
-    this.setState({
-      searchKey: keyword
-    });
-    if (keyword.length > 0) {
-      if (this.props.activeTab !== "contacts") {
-        this.props.toggleAppMenu("contacts")
-       
-      }
-      this.props.searchContact(keyword);
-    } else {
-      this.props.searchContact("");
-    }
+
   };
 
-  handleConversationClick = (e, selectedUserId) => {
-    this.props.changeConversation(selectedUserId);
-    this.handleSearchContact("");
-  }
-
-  handleContactClick = (userId) => {
-    if (this.props.activeTab !== "messages") {
-      this.props.toggleAppMenu("messages")
-      this.props.searchContact("");
-    }
-
-    const { conversations, currentUser } = this.props.chatApp;
-    const conversation = conversations.find(
-      x => x.users.includes(currentUser.id) && x.users.includes(userId)
-    );
-    if (conversation) {
-      this.props.changeConversation(userId);
-    } else {
-      this.props.createConversation(currentUser.id, userId, conversations);
-      this.props.changeConversation(userId);
-    }
-  }
 
 
   render() {
-    const {
-      contacts,
-      allContacts,
-      conversations,
-      loadingConversations,
-      loadingContacts,
-      currentUser
-    } = this.props.chatApp;
     const { messages } = this.props.intl;
 
     return (
       <ApplicationMenu>
         <CardHeader className="pl-0 pr-0">
           <Nav tabs className="card-header-tabs ml-0 mr-0">
-            <NavItem className="w-50 text-center">
+            <NavItem className="w-30 text-center">
               <NavLink
                 className={classnames({
                   active: this.props.activeTab === "messages",
                   "nav-link": true
                 })}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault()
                   this.toggleAppMenu("messages");
                 }}
                 to="#"
@@ -99,18 +58,34 @@ class ChatApplicationMenu extends Component {
                 <IntlMessages id="chat.messages" />
               </NavLink>
             </NavItem>
-            <NavItem className="w-50 text-center">
+            <NavItem className="w-30 text-center">
               <NavLink
                 className={classnames({
                   active: this.props.activeTab === "contacts",
                   "nav-link": true
                 })}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault()
                   this.toggleAppMenu("contacts");
                 }}
                 to="#"
               >
                 <IntlMessages id="chat.contacts" />
+              </NavLink>
+            </NavItem>
+            <NavItem className="w-30 text-center">
+              <NavLink
+                  className={classnames({
+                    active: this.props.activeTab === "groups",
+                    "nav-link": true
+                  })}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    this.toggleAppMenu("groups");
+                  }}
+                  to="#"
+              >
+                <IntlMessages id="chat.groups" />
               </NavLink>
             </NavItem>
           </Nav>
@@ -136,103 +111,149 @@ class ChatApplicationMenu extends Component {
             <PerfectScrollbar
               option={{ suppressScrollX: true, wheelPropagation: false }}
             >
-              <div className="pt-2 pr-4 pl-4 pb-2">
-                {loadingContacts &&
-                  loadingConversations &&
-                  conversations.map((item, index) => {
-                    const otherUser = allContacts.find(
-                      u => u.id === item.users.find(x => x !== currentUser.id)
-                    );
-                    return (
+
+            <div className="pt-2 pr-4 pl-4 pb-2">
+
+              {
+                    this.props.roomlist.filter(room => room.members.includes(this.props.user._id)).map((chat, index) => {
+                      const friend = chat.members.filter(member => member !== this.props.user._id)[0]
+                      const chatUser = this.props.friendlist.filter(x => x._id === friend )[0]
+                  return (
                       <div
-                        key={index}
-                        className="d-flex flex-row mb-1 border-bottom pb-3 mb-3"
+                          key={index}
+                          className="d-flex flex-row mb-3 border-bottom pb-3"
                       >
                         <NavLink
-                          className="d-flex"
-                          to="#"
-                          onClick={e =>
-                            this.handleConversationClick(e, otherUser.id)
-                          }
+                            className="d-flex"
+                            to="#"
+                            onClick={(e)=> {
+                              e.preventDefault()
+                              this.props.openRoom(chat)
+                            }}
                         >
                           <img
-                            alt={otherUser.name}
-                            src={otherUser.thumb}
-                            className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
+                              alt={''}
+                              src={"/assets/img/profile-pic-l-11.jpg"}
+                              className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
                           />
                           <div className="d-flex flex-grow-1 min-width-zero">
-                            <div className="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
+                            <div className="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
                               <div className="min-width-zero">
-                                <p className=" mb-0 truncate">
-                                  {otherUser.name}
+                                <p className="mb-0 truncate">
+                                  {chatUser ?
+                                      <span>{chatUser.firstName} {chatUser.lastName}</span> : null}
                                 </p>
-                                <p className="mb-1 text-muted text-small">
-                                  {item.lastMessageTime}
-                                </p>
+                                <div className="">
+                                  <small className={'col-md-8 pl-0'}>{chat.messageList.length ? chat.messageList[chat.messageList.length-1].text : null}</small>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </NavLink>
                       </div>
-                    );
-                  })}
-              </div>
+                  );
+                }) }
+            </div>
             </PerfectScrollbar>
           </TabPane>
+
           <TabPane tabId="contacts" className="chat-app-tab-pane">
             <PerfectScrollbar
-              option={{ suppressScrollX: true, wheelPropagation: false }}
+                option={{ suppressScrollX: true, wheelPropagation: false }}
             >
               <div className="pt-2 pr-4 pl-4 pb-2">
-                {loadingContacts &&
-                  contacts
-                    .filter(x => x.id !== currentUser.id)
-                    .map((item, index) => {
-                      return (
+                {
+                  this.props.friendlist.filter(x => x._id !== this.props.user._id).map((friend, index) => {
+                    return (
                         <div
-                          key={index}
-                          className="d-flex flex-row mb-3 border-bottom pb-3"
+                            key={index}
+                            className="d-flex flex-row mb-3 border-bottom pb-3"
                         >
                           <NavLink
-                            className="d-flex"
-                            to="#"
-                            onClick={()=>this.handleContactClick(item.id)}
-                          >
+                              className="d-flex"
+                              to="#"
+                              onClick={(e)=> {
+                                e.preventDefault()
+                                this.props.chatChoise(friend)
+                              }}>
                             <img
-                              alt={item.name}
-                              src={item.thumb}
-                              className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
+                                alt={''}
+                                src={"/assets/img/gennadysx.jpg"}
+                                className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
                             />
                             <div className="d-flex flex-grow-1 min-width-zero">
                               <div className="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
                                 <div className="min-width-zero">
-                                  <p className="mb-0 truncate">{item.name}</p>
+                                  <p className="mb-0 truncate">{friend.firstName} {friend.lastName}</p>
                                 </div>
                               </div>
                             </div>
                           </NavLink>
                         </div>
-                      );
-                    })}
+                    );
+                  })}
               </div>
             </PerfectScrollbar>
           </TabPane>
+
+          <TabPane tabId="groups" className="chat-app-tab-pane">
+            <PerfectScrollbar option={{ suppressScrollX: true, wheelPropagation: false }}>
+              <div
+                  className="d-flex justify-content-center">
+                <StateButton
+                    id="successButton"
+                    color="success"
+                    className="mb-3"
+                    onClick={this.handleSuccessButtonClick}
+                >
+                  <IntlMessages id="chat.new" />
+                </StateButton>
+              </div>
+              <div className="pt-2 pr-4 pl-4 pb-2">
+                {
+                  this.props.roomlist.filter(room => room.type === 'project').map((chat, index) => {
+                    return (
+                        <div
+                            key={index}
+                            className="d-flex flex-row mb-3 border-bottom pb-3"
+                        >
+                          <NavLink
+                              className="d-flex"
+                              to="#"
+                              onClick={(e)=> {
+                                e.preventDefault()
+                                this.props.chatChoise(chat._id)
+                              }}
+                          >
+                            <img
+                                alt={''}
+                                src={"/assets/img/profile-pic-l-11.jpg"}
+                                className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
+                            />
+                            <div className="d-flex flex-grow-1 min-width-zero">
+                              <div className="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
+                                <div className="min-width-zero">
+                                  <p className="mb-0 truncate">
+                                    <span>chat {index}</span>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </NavLink>
+                        </div>
+                    );
+                  }) }
+
+
+              </div>
+
+            </PerfectScrollbar>
+          </TabPane>
+
         </TabContent>
       </ApplicationMenu>
     );
   }
 }
 
-const mapStateToProps = ({ chatApp }) => {
-  return { chatApp };
-};
-export default injectIntl(
-  connect(
-    mapStateToProps,
-    {
-      changeConversation,
-      createConversation,
-      searchContact
-    }
-  )(ChatApplicationMenu)
-);
+export default injectIntl(ChatApplicationMenu);

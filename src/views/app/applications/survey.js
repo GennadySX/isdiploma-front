@@ -36,17 +36,57 @@ class SurveyApp extends Component {
       dropdownSplitOpen: false,
       modalOpen: false,
       lastChecked: null,
-
       title: "",
       label: {},
       category: {},
       status: "ACTIVE",
-      displayOptionsIsOpen: false
+      displayOptionsIsOpen: false,
+      projectList: null,
+      userList: null
     };
+    this.getProjects()
+
   }
   componentDidMount() {
     this.props.getSurveyList();
+
+    this.userListGet()
   }
+
+
+  getProjects() {
+    this.props.client.on('getProjectList', (projects) => {
+      this.setState({projectList: projects.data})
+      console.log('project list ', projects)
+    })
+    this.props.client.emit('emit_getProjectList');
+  }
+
+
+
+  createProject(new_project) {
+
+    this.props.client.on('createProject', (project) => {
+      console.log('new project', project)
+        window.location.reload()
+    })
+    this.props.client.emit('emit_createProject', new_project);
+  }
+
+
+
+
+  userListGet() {
+     this.props.client.on('friendList', friends => {
+      this.setState({
+        userList: friends.data
+      }, () => {})
+    })
+    this.props.client.emit('getFriendList')
+
+  }
+
+
 
   toggleDisplayOptions = () => {
     this.setState({ displayOptionsIsOpen: !this.state.displayOptionsIsOpen });
@@ -253,15 +293,15 @@ class SurveyApp extends Component {
             </div>
             <Separator className="mb-5" />
             <Row>
-              {loading ? (
-                surveyItems.map((item, index) => {
+              {loading && this.state.projectList ? (
+                  this.state.projectList.map((project, index) => {
                   return (
                     <SurveyListItem
                       key={`todo_item_${index}`}
-                      item={item}
+                      item={project}
                       handleCheckChange={this.handleCheckChange}
                       isSelected={
-                        loading ? selectedItems.includes(item.id) : false
+                        loading ? selectedItems.includes(project._id) : false
                       }
                     />
                   );
@@ -274,10 +314,15 @@ class SurveyApp extends Component {
         </Row>
 
         {loading && <SurveyApplicationMenu />}
-        <AddNewSurveyModal
-          toggleModal={this.toggleModal}
-          modalOpen={modalOpen}
-        />
+        { this.state.userList &&
+         <AddNewSurveyModal
+            userList={this.state.userList}
+            toggleModal={this.toggleModal}
+            modalOpen={modalOpen}
+            onCreate={(project) => this.createProject(project)}
+        /> }
+
+
       </Fragment>
     );
   }

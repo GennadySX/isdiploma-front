@@ -316,6 +316,8 @@ class Sidebar extends Component {
                               viewingParentMenu === "") ||
                             viewingParentMenu === item.id
                         })}
+
+
                       >
                         {item.newWindow ? (
                           <a
@@ -329,7 +331,9 @@ class Sidebar extends Component {
                         ) : (
                           <NavLink
                             to={item.to}
-                            onClick={e => this.openSubMenu(e, item)}
+                            onClick={e =>  {
+                              item.func ? item.func() : this.openSubMenu(e, item)
+                            }}
                             data-flag={item.id}
                           >
                             <i className={item.icon} />{" "}

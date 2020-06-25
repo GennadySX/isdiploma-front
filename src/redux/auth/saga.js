@@ -12,20 +12,20 @@ import {
     registerUserSuccess
 } from './actions';
 
-const loginWithEmailPasswordAsync = async (email, password) =>
-    await auth.signInWithEmailAndPassword(email, password)
+const loginWithEmailPasswordAsync = async (login, password) =>
+    await auth.signInWithEmailAndPassword(login, password)
         .then(authUser => authUser)
         .catch(error => error);
 
 
 
 function* loginWithEmailPassword({ payload }) {
-    const { email, password } = payload.user;
+    const { login, password } = payload.user;
     const { history } = payload;
     try {
-        const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
+        const loginUser = yield call(loginWithEmailPasswordAsync, login, password);
         if (!loginUser.message) {
-            localStorage.setItem('user_id', loginUser.user.uid);
+            localStorage.setItem('user_id', loginUser.user.id);
             yield put(loginUserSuccess(loginUser));
             history.push('/');
         } else {

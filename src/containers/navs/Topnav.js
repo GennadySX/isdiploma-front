@@ -35,7 +35,9 @@ class TopNav extends Component {
 
     this.state = {
       isInFullScreen: false,
-      searchKeyword: ""
+      searchKeyword: "",
+
+      user: JSON.parse(localStorage.getItem('user'))
     };
   }
 
@@ -162,7 +164,9 @@ class TopNav extends Component {
   };
 
   handleLogout = () => {
-    this.props.logoutUser(this.props.history);
+    localStorage.clear()
+    window.location.href = '/'
+    //this.props.logoutUser(this.props.history);
   };
 
   menuButtonClick = (e, menuClickCount, containerClassnames) => {
@@ -255,9 +259,9 @@ class TopNav extends Component {
         <div className="ml-auto">
           <div className="header-icons d-inline-block align-middle">
 
-            <TopnavEasyAccess />
-            <TopnavNotifications />
-            <button
+            {/*<TopnavEasyAccess />*/}
+            {/*<TopnavNotifications />*/}
+          {/*  <button
               className="header-icon btn btn-empty d-none d-sm-inline-block"
               type="button"
               id="fullScreenButton"
@@ -268,24 +272,24 @@ class TopNav extends Component {
               ) : (
                 <i className="simple-icon-size-fullscreen d-block" />
               )}
-            </button>
+            </button>*/}
           </div>
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">Геннадий Сабировский</span>
+                <span className="name mr-1">{this.state.user.firstName} {this.state.user.lastName}</span>
                 <span>
                   <img alt="Profile" src="/assets/img/gennadysx.jpg" />
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
-                <DropdownItem>Account</DropdownItem>
-                <DropdownItem>Features</DropdownItem>
-                <DropdownItem>History</DropdownItem>
-                <DropdownItem>Support</DropdownItem>
+                <DropdownItem>Профиль</DropdownItem>
+                <DropdownItem>Чат</DropdownItem>
+                <DropdownItem>Задачи</DropdownItem>
+                <DropdownItem>Помощь</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem onClick={() => this.handleLogout()}>
-                  Sign out
+                   Выйти
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
