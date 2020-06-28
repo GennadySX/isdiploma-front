@@ -9,14 +9,8 @@
 const port = 3000
 
 // dev version
-  /*
-   const domain = "http://89.251.145.123:"+port;
-    const ws = `ws://89.251.145.123:${port}`;
-*/
-
-// dev version
-const domain = "http://192.168.1.20:"+port;
-const ws = `ws://192.168.1.20:${port}`;
+const domain = "http://localhost:"+port;
+const ws = `ws://localhost:${port}`;
 
 
 // prod version

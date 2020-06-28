@@ -1,5 +1,5 @@
 {
-  "name": "isDiploma modified by GennadySX",
+  "name": "isDiploma",
   "version": "1.0.0",
   "description": "isDiploma - modified by GennadySX",
   "private": true,
@@ -37,6 +37,7 @@
     "react-tagsinput": "^3.19.0",
     "react-transition-group": "^1.2.0",
     "react-trello": "^2.2.6",
+    "react-user-avatar": "^1.10.0",
     "react-yandex-maps": "^3.0.2",
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",

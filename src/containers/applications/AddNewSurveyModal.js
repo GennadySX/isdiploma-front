@@ -35,7 +35,8 @@ class AddNewSurveyModal extends Component {
             creator: JSON.parse(localStorage.getItem('user'))._id,
             user: null,
             modalRight: false,
-            userList: this.props.userList
+            userList: this.props.userList,
+            fullList:this.props.userList
         };
     }
 
@@ -57,6 +58,13 @@ class AddNewSurveyModal extends Component {
         });
     };
 
+    clear() {
+        this.setState({executors: null, userList: this.state.fullList}, () => {
+            console.log('cleared', this.state)
+        })
+
+    }
+
 
     render() {
         const {modalOpen, toggleModal} = this.props;
@@ -67,7 +75,9 @@ class AddNewSurveyModal extends Component {
                 wrapClassName="modal-right"
                 backdrop="static"
             >
-                <ModalHeader toggle={toggleModal}>
+                <ModalHeader
+                    style={{height: 67}}
+                    toggle={toggleModal}>
                     <IntlMessages id="project.add-new-title"/>
                 </ModalHeader>
                 <ModalBody>
@@ -105,7 +115,10 @@ class AddNewSurveyModal extends Component {
                         wrapClassName="modal-right"
                         backdrop="static"
                     >
-                        <ModalHeader toggle={() => this.setState({modalRight: false})}>
+                        <ModalHeader
+                            className={'mb-2'}
+                            style={{height: 67}}
+                            toggle={() => this.setState({modalRight: false})}>
                             Добавить пользователей
                         </ModalHeader>
                         <ModalBody>
@@ -114,8 +127,15 @@ class AddNewSurveyModal extends Component {
                               <UserCard user={user}
                                 onClick={(userx) => {
                                   console.log('user selected ', userx)
-                                  this.setState({userList: this.state.userList.filter(u => u._id !== userx._id), executors: [...this.state.executors, userx._id ]})
-
+                                    let userList =this.state.userList.filter(u => u._id !== userx._id);
+                                    if (userList.length > 0) {
+                                        this.setState({
+                                            userList: userList,
+                                            executors: [...this.state.executors, userx._id]
+                                        })
+                                    } else {
+                                        this.setState({modalRight: false})
+                                    }
                                 }}
                               />
                               )
@@ -124,16 +144,18 @@ class AddNewSurveyModal extends Component {
                         <ModalFooter>
                         </ModalFooter>
                     </Modal>
-
-
                 </ModalBody>
                 <ModalFooter>
 
 
-                    <Button color="secondary" outline onClick={toggleModal}>
+                    <Button color="secondary" outline onClick={ (e) => {
+                        toggleModal(e);
+                        this.clear()}}>
                         <IntlMessages id="project.cancel-btn"/>
                     </Button>
-                    <Button color="primary" onClick={() => this.props.onCreate(this.state)}>
+                    <Button color="primary" onClick={() => {
+                        this.props.onCreate(this.state)
+                        this.clear()}}>
                         <IntlMessages id="project.create-btn"/>
                     </Button>
                 </ModalFooter>

@@ -30,7 +30,7 @@ class Login extends Component {
             if (res.data && res.data.token) {
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('user', JSON.stringify(res.data.user))
-                window.location.href = '/'
+                window.location.href = '/home/chat'
             }
         })
     }

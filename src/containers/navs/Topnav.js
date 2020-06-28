@@ -28,6 +28,8 @@ import {
 import { MobileMenuIcon, MenuIcon } from "../../components/svg";
 import TopnavEasyAccess from "./Topnav.EasyAccess";
 import TopnavNotifications from "./Topnav.Notifications";
+import UserAvatar from "react-user-avatar";
+import {chatAvatar} from "../../constants/ChatAvatar";
 
 class TopNav extends Component {
   constructor(props) {
@@ -276,10 +278,14 @@ class TopNav extends Component {
           </div>
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
-              <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">{this.state.user.firstName} {this.state.user.lastName}</span>
+              <DropdownToggle className="p-0 d-flex justify-content-between align-content-center align-items-center " color="empty">
+                <span className="name mr-3">{this.state.user.firstName} {this.state.user.lastName}</span>
                 <span>
-                  <img alt="Profile" src="/assets/img/gennadysx.jpg" />
+                 <UserAvatar
+                     alt="Profile"
+                     size="40" src={this.state.user.avatar}
+                     name={`${this.state.user.firstName} ${this.state.user.lastName}`}
+                     colors={chatAvatar.colors}/>
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
@@ -313,6 +319,6 @@ const mapStateToProps = ({ menu, settings }) => {
 export default injectIntl(
   connect(
     mapStateToProps,
-    { setContainerClassnames, clickOnMobileMenu, logoutUser, changeLocale }
+    { setContainerClassnames, clickOnMobileMenu,  changeLocale }
   )(TopNav)
 );

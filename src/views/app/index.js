@@ -1,34 +1,52 @@
 import React, { Component } from "react";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-
 import AppLayout from "../../layout/AppLayout";
-import applications from "./applications";
-import blankPage from "./blank-page";
 import ProfilePage from "../user/profile";
+import SurveyApp from "./applications/survey";
+import TaskApp from "./applications/task";
+import Chat from "./applications/chat";
+import openSocket from "socket.io-client";
+import {Api} from "../../constants/API";
+
+
+const HomeRouter = ({match, state}) => (
+    <div className="dashboard-wrapper">
+    </div>
+)
 
 const token = localStorage.getItem('token')
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
+      token: token
     }
+
+    this.socket = token ? openSocket(Api.ws, {
+      query: {
+        token: token
+      },
+      transports: ['websocket']
+    }) : null
   }
 
+
   render() {
-    const { match } = this.props;
 
     if (localStorage.getItem('token') <= 0) {
       window.location.href = '/user/login'
     }
+
     return (
       <AppLayout>
         <Switch>
-          <Redirect exact from={`${match.url}/`} to={`${match.url}/applications/chat`} />
-          <Route path={`${match.url}/applications`} component={applications}/>
-          <Route path={`${match.url}/profile`} component={ProfilePage} />
-          <Route path={`${match.url}/blank-page`} component={blankPage} />
+          <Route path={`/home/chat`} component={() => <Chat {...this.props} client={this.socket} />} params={this.state} />
+          <Route path={`/home/project`} component={() => <SurveyApp {...this.props} client={this.socket} />} isExact/>
+          <Route path={`/home/task`} component={() => <TaskApp {...this.props} client={this.socket} />} isExact/>
+          <Route path={`/home/profile`} component={ProfilePage} />
+          <Redirect from={'/'} to="/home/chat" />
           <Redirect to="/error" />
         </Switch>
       </AppLayout>
@@ -40,9 +58,5 @@ const mapStateToProps = ({ menu }) => {
   return { containerClassnames };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {}
-  )(App)
+export default withRouter(App
 );

@@ -4,14 +4,14 @@ const data = [
     icon: "simple-icon-bubbles",
     label: "menu.chat_page",
     title: "Чат",
-    to: "/home/applications/chat",
+    to: "/home/chat",
   },
   {
     id: "projects",
     icon: "simple-icon-layers",
     label: "menu.projects",
     title: "Проекты",
-    to: "/home/applications/project",
+    to: "/home/project",
 
   },
   {
@@ -19,7 +19,7 @@ const data = [
     icon: "simple-icon-pin",
     label: "menu.tasks",
     title: "Задачи",
-    to: "/home/applications/task"
+    to: "/home/task"
   },
   {
     id: "menu",
@@ -39,7 +39,7 @@ const data = [
     id: "blankpage",
     icon: "simple-icon-power",
     label: "menu.logout",
-    to: "/app/blank-page",
+    to: "/home/blank-page",
     title: "Выйти",
     func: () => {
       localStorage.clear()

@@ -23,8 +23,6 @@ export class SurveyApplicationMenu extends Component {
       filter,
       allSurveyItems,
       loading,
-      labels,
-      categories
     } = this.props.surveyListApp;
 
     return (
@@ -86,8 +84,6 @@ export class SurveyApplicationMenu extends Component {
                 </NavLink>
               </NavItem>
             </ul>
-
-
           </div>
         </PerfectScrollbar>
       </ApplicationMenu>

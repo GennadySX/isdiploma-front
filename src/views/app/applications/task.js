@@ -6,6 +6,7 @@ import {Row} from "reactstrap";
 import {Colxx} from "../../../components/common/CustomBootstrap";
 
 import {taskData} from "../../../data/ATask";
+import TaskHeader from "../../../components/task/header";
 
 
 class TaskApp extends Component {
@@ -17,13 +18,28 @@ class TaskApp extends Component {
             loading: false
         };
         this._scrollBarRef = window.innerHeight
+        this.socket = this.props.client
+    }
 
-        console.log('chat props', this.props)
+
+
+    addCard(card, lane) {
+        console.log('created card is', card)
+        console.log('lane is', lane)
+       this.socket.on('taskCreated', (task) => {
+            console.log('server task create answer', task)
+        })
+        this.socket.emit('taskCreate', {
+            project_id: '5ef3a7d156a3bf3d4c22de65',
+            type: lane,
+            title: card.title,
+            description: card.description,
+            creator: '5eec5b3b89af370378db7597'
+        })
+
 
     }
 
-    componentDidMount() {
-    }
 
 
     render() {
@@ -31,15 +47,18 @@ class TaskApp extends Component {
             (
                 <Fragment>
                     <Row className="col-12 cd">
+
+
+                            <TaskHeader
+                                {...this.props}
+                            />
                         <Board data={taskData}
                                style={{backgroundColor: 'transparent'}}
                                lang={'ru'}
                                editable
                                draggable
-                               onCardAdd={(card, laneId) => {
-                                 console.log('created card', card)
-                                 console.log('in board', laneId)
-                               }}
+                               hideCardDeleteIcon={false}
+                               onCardAdd={(card, laneId) => this.addCard(card, laneId)}
 
                                // canAddLanes
                                handleDragEnd={(cardId, sourceLaneId, targetLaneId, position, cardDetails) => {

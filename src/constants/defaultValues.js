@@ -13,8 +13,8 @@ export const localeOptions = [
 ];
 
 
-
-export const searchPath = "/home/pages/search";
+export const searchPath = "/app/pages/search";
+export const servicePath = "https://api.coloredstrategies.com";
 
 /* 
 Color Options:

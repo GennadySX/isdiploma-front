@@ -40,7 +40,7 @@ export const taskData = {
             ]
         },
         {
-            "id": "WIP",
+            "id": "DOING",
             "title": "В прогрессе",
             "style": {
                 "width": 280,
@@ -56,7 +56,7 @@ export const taskData = {
             ]
         },
         {
-            "id": "TEST",
+            "id": "TESTING",
             "title": "Тестировка",
             "style": {
                 "width": 280,
@@ -72,7 +72,7 @@ export const taskData = {
             ]
         },
         {
-            "id": "ERROR",
+            "id": "BUGS",
             "title": "Баги",
             "style": {
                 "width": 280,

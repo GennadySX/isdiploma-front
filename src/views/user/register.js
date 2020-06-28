@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Row, Card, CardTitle, Form, Label, Input, Button } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { registerUser } from "../../redux/actions";
 
 import IntlMessages from "../../helpers/IntlMessages";
 import { Colxx } from "../../components/common/CustomBootstrap";
@@ -146,9 +145,4 @@ const mapStateToProps = ({ authUser }) => {
   return { user, loading };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    registerUser
-  }
-)(Register);
+export default connect(Register);

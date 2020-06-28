@@ -10,7 +10,8 @@ import IntlMessages from "../../helpers/IntlMessages";
 import ApplicationMenu from "../../components/common/ApplicationMenu";
 import StateButton from "../../components/StateButton";
 
-
+import UserAvatar from 'react-user-avatar'
+import {chatAvatar} from "../../constants/ChatAvatar";
 
 class ChatApplicationMenu extends Component {
   constructor(props) {
@@ -114,7 +115,7 @@ class ChatApplicationMenu extends Component {
 
             <div className="pt-2 pr-4 pl-4 pb-2">
 
-              {this.props.roomlist &&
+              {
                     this.props.roomlist.filter(room => room.members.includes(this.props.user._id)).map((chat, index) => {
                       const friend = chat.members.filter(member => member !== this.props.user._id)[0]
                       const chatUser = this.props.friendlist.filter(x => x._id === friend )[0]
@@ -131,11 +132,10 @@ class ChatApplicationMenu extends Component {
                               this.props.openRoom(chat)
                             }}
                         >
-                          <img
-                              alt={''}
-                              src={"/assets/img/avatar.png"}
-                              className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
+                          <UserAvatar size="48" src={chatUser.avatar} name={`${chatUser.firstName} ${chatUser.lastName}`}
+                          colors={chatAvatar.colors}
                           />
+
                           <div className="d-flex flex-grow-1 min-width-zero">
                             <div className="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
                               <div className="min-width-zero">
@@ -176,11 +176,13 @@ class ChatApplicationMenu extends Component {
                                 e.preventDefault()
                                 this.props.chatChoise(friend)
                               }}>
-                            <img
-                                alt={''}
-                                src={"/assets/img/avatar.png"}
+                            <UserAvatar
                                 className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
+                                size="48" src={friend.avatar} name={`${friend.firstName} ${friend.lastName}`}
+                                        colors={chatAvatar.colors}
                             />
+
+
                             <div className="d-flex flex-grow-1 min-width-zero">
                               <div className="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
                                 <div className="min-width-zero">
@@ -210,7 +212,7 @@ class ChatApplicationMenu extends Component {
                 </StateButton>
               </div>
               <div className="pt-2 pr-4 pl-4 pb-2">
-                {this.props.roomlist &&
+                {
                   this.props.roomlist.filter(room => room.type === 'project').map((chat, index) => {
                     return (
                         <div
@@ -227,7 +229,7 @@ class ChatApplicationMenu extends Component {
                           >
                             <img
                                 alt={''}
-                                src={"/assets/img/avatar.png"}
+                                src={"/assets/img/profile-pic-l-11.jpg"}
                                 className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
                             />
                             <div className="d-flex flex-grow-1 min-width-zero">

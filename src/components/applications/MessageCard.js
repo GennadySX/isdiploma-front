@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 import { Card, CardBody } from "reactstrap";
+import UserAvatar from "react-user-avatar";
+import {chatAvatar} from "../../constants/ChatAvatar";
 
 const MessageCard = ({ sender, item, currentUserid, senderUser }) => {
   return (
@@ -12,13 +14,12 @@ const MessageCard = ({ sender, item, currentUserid, senderUser }) => {
         <div className="position-absolute  pt-1 pr-2 r-0">
           <span className="text-extra-small text-muted">{item.createdAt}</span>
         </div>
-        <CardBody>
+        <CardBody >
           <div className="d-flex flex-row pb-1">
-            <img
-              alt={"No name"}
-              src={'/assets/img/avatar.png'}
-              className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
-            />
+            <UserAvatar size="40" src={senderUser.avatar}
+                        name={`${senderUser.firstName} ${senderUser.lastName}`}
+                        colors={chatAvatar.colors}/>
+
             <div className=" d-flex flex-grow-1 min-width-zero">
               <div className="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
                 <div className="min-width-zero">
@@ -29,7 +30,6 @@ const MessageCard = ({ sender, item, currentUserid, senderUser }) => {
               </div>
             </div>
           </div>
-
           <div className="chat-text-left">
             <p className="mb-0 text-semi-muted">{item}</p>
           </div>

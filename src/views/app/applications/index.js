@@ -29,16 +29,13 @@ class Applications extends React.Component {
 
 
     render() {
+
+        // console.log('application router')
         const {match} = this.props
     return (
         <div className="dashboard-wrapper">
             <Switch>
-                <Redirect exact from={`${match.url}/`} to={`${match.url}/todo`} />
-                <Route
-                    path={`${match.url}/project/:surveyid`}
-                    component={surveyDetailApp}
-                    isExact
-                />
+
                 <Route path={`${match.url}/project`} component={() => <SurveyApp {...this.props} client={this.socket} />} isExact/>
                 <Route path={`${match.url}/task`} component={() => <TaskApp {...this.props} client={this.socket} />} isExact/>
                 <Route path={`${match.url}/chat`} component={() => <Chat {...this.props} client={this.socket} />} params={this.state} />

@@ -6,6 +6,8 @@
 
 import React from "react";
 import {ModalBody} from "reactstrap";
+import UserAvatar from "react-user-avatar";
+import {chatAvatar} from "../constants/ChatAvatar";
 
 export default class UserCard extends React.Component{
     constructor(props) {
@@ -17,18 +19,22 @@ export default class UserCard extends React.Component{
 
     render() {
         return (
-            <div className="d-flex flex-row mb-4 card">
-                <div className="d-flex active" aria-current="page" onClick={(e) => {
-                    e.preventDefault()
-                    this.props.onClick(this.props.user)
-                }}>
-                    <img alt="profile"  src="/assets/img/avatar.png" className="img-thumbnail list-thumbnail align-self-center m-4  rounded-circle small" /></div>
+            <div className="d-flex flex-row card mb-2" style={{cursor: 'pointer'}}  onClick={(e) => {
+                e.preventDefault()
+                this.props.onClick(this.props.user)
+            }}>
+                <div className="d-flex active" aria-current="page">
+                    <UserAvatar
+                        className="img-thumbnail list-thumbnail align-self-center ml-4 mr-4  rounded-circle small"
+                        size="50" src={this.props.user.avatar}
+                        name={`${this.props.user.firstName} ${this.props.user.firstName}`}
+                        colors={chatAvatar.colors}/></div>
                 <div className=" d-flex flex-grow-1 min-width-zero">
                     <div
                         className=" pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero card-body">
-                        <div className="min-width-zero"><a className="active" aria-current="page" href="/app/ui/cards"><h6
-                            className="truncate mb-1 card-subtitle">{this.props.user.firstName} {this.props.user.lastName}</h6></a><p
-                            className="text-muted text-small mb-2 card-text">???</p></div>
+                        <div className="min-width-zero"><h6
+                            className="truncate mb-1 card-subtitle">{this.props.user.firstName} {this.props.user.lastName}</h6><p
+                            className="text-muted text-small mb-2 card-text">{this.props.user.about}</p></div>
                     </div>
                 </div>
             </div>

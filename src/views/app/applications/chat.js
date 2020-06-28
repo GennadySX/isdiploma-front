@@ -10,15 +10,13 @@ import {
     getContacts,
     getConversations,
     changeConversation,
-    addMessageToConversation
+    addMessageToConversation,
+    getUsers
 } from "../../../redux/actions";
 import ChatApplicationMenu from "../../../containers/applications/ChatApplicationMenu";
 import ChatHeading from "../../../components/applications/ChatHeading";
 import MessageCard from "../../../components/applications/MessageCard";
 import SaySomething from "../../../components/applications/SaySomething";
-
-import contactsData from "../../../data/chat.contacts.json";
-import conversationsData from "../../../data/chat.conversations.json";
 
 import $ from 'jquery'
 import {WSList} from "../../../constants/API";
@@ -34,17 +32,15 @@ class ChatApp extends Component {
             roomList: null,
             init: false,
             user: null,
-            messages: conversationsData.data[0].messages,
+            messages: [],
             room: null,
             messageList: []
         };
         this._scrollBarRef = window.innerHeight
-
-        //console.log('chat props', this.props)
-
     }
 
     componentDidMount() {
+        console.log('chat ')
         this.props.getContacts();
         this.props.getConversations(2)
         this.getFriends();
@@ -60,8 +56,6 @@ class ChatApp extends Component {
                 user: JSON.parse(user),
                 friendlist: friends.data
             }, () => {
-                console.log('friend list', this.state)
-
             })
         })
         this.props.client.emit('getFriendList')
@@ -71,20 +65,16 @@ class ChatApp extends Component {
     getGroups = async () => {
         await this.props.client.on('roomList', roomList => {
             //console.log('roomList is', roomList)
-            if (roomList.data[0]) {
-                this.joinIt(roomList.data[0])
+            this.joinIt(roomList.data[0])
 
-                this.setState({
-                    roomList: roomList.data,
-                    init: true,
-                    room: roomList.data[0],
-                    messageList: roomList.data[0].messageList
-                })
-            }
+            this.setState({
+                roomList: roomList.data,
+                init: true,
+                room: roomList.data[0],
+                messageList: roomList.data[0].messageList
+            })
         })
         this.props.client.emit('get_room_list')
-
-
     };
 
 
@@ -126,7 +116,6 @@ class ChatApp extends Component {
 
 
     socketStart() {
-
         this.props.client.on(WSList.receive, (msg, room) => {
             console.log('got message', room)
             if (this.state.room && this.state.room._id === room._id) {
@@ -153,15 +142,12 @@ class ChatApp extends Component {
     checkFriendRoom(friend) {
         //console.log('friend data', friend)
         friend.type = 'user'
-
         this.props.client.on('room_check_res', (room) => {
             console.log('room is exists > ', room)
             this.setState({room: room, messageList: room.messageList})
             this.props.client.emit('get_room_emit', room);
         })
-
         this.props.client.emit('room_check_req', friend._id);
-
     }
 
 
@@ -178,7 +164,7 @@ class ChatApp extends Component {
                             {this.state.user &&
                             <ChatHeading
                                 name={`${this.state.user.firstName} ${this.state.user.lastName}`}
-                                thumb={"/assets/img/gennadysx.jpg"}
+                                thumb={this.state.user.avatar}
                                 lastSeenDate={"online"}
                             />
                             }
@@ -221,7 +207,7 @@ class ChatApp extends Component {
                             />
                         </Colxx>
                     </Row>
-                    {this.state.friendlist  && this.state.user ?
+                    {this.state.friendlist && this.state.init && this.state.user ?
                         <ChatApplicationMenu
                             openRoom={(room) => this.openRoom(room)}
                             chatChoise={(friend) => this.checkFriendRoom(friend)}
@@ -234,9 +220,7 @@ class ChatApp extends Component {
                     }
                 </Fragment>
             ) : (
-                <>
                 <div className="loading"></div>
-                    </>
             );
     }
 }
@@ -252,7 +236,8 @@ export default injectIntl(
             getContacts,
             getConversations,
             changeConversation,
-            addMessageToConversation
+            addMessageToConversation,
+            getUsers
         }
     )(ChatApp)
 );

@@ -2048,7 +2048,7 @@ button {
         border-radius: 10px;
         position: absolute;
         width: 6px;
-        height: 90px;
+        height: 67px;
         top: 50%;
         transform: translateY(-50%);
         left: 0;
@@ -2478,7 +2478,7 @@ button {
 
 .chat-input-container {
   width: 100%;
-  height: 90px;
+  height: 67px;
   background: $input-background;
   position: fixed;
   left: 0;
@@ -2506,7 +2506,7 @@ button {
   input {
     border: initial;
     width: unset;
-    height: 90px;
+    height: 67px;
     padding-left: 0;
     display: inline-block;
   }

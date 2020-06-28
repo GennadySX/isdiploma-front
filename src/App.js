@@ -16,28 +16,8 @@ import app from "./views/app";
 import user from "./views/user";
 import error from "./views/error";
 
-import {Api} from "./constants/API";
-import openSocket from "socket.io-client";
 const token = localStorage.getItem('token')
 
-const AuthRoute = ({ component: Component, authUser,  client, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      authUser ? (
-        <Component {...props}  client={client}/>
-      ) : (
-        <Redirect
-          to={{
-              client: client,
-            pathname: "/auth/login",
-            state: { from: props.location }
-          }}
-        />
-      )
-    }
-  />
-);
 
 class App extends Component {
     constructor(props) {
@@ -52,7 +32,6 @@ class App extends Component {
   render() {
     const { locale, loginUser } = this.props;
     const currentAppLocale = AppLocale[locale];
-
     return (
       <div className="h-100">
         <IntlProvider
@@ -64,10 +43,9 @@ class App extends Component {
             {isMultiColorActive && <ColorSwitcher />}
             <Router>
               <Switch>
-                <AuthRoute path="/home" authUser={loginUser} component={app} client={this.state.ioSocket} />
-                <Route path="/auth" component={user} />
+                <Route path="/home" component={app} />
+                <Route path="/user" component={user} />
                 <Route path="/error" exact component={error} />
-                <Route path="/" exact component={main} />
                 <Redirect to="/error" />
               </Switch>
             </Router>
@@ -78,10 +56,9 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ authUser, settings }) => {
-  const { user: loginUser } = authUser;
+const mapStateToProps = ({  settings }) => {
   const { locale } = settings;
-  return { loginUser, locale };
+  return {  locale };
 };
 const mapActionsToProps = {};
 
