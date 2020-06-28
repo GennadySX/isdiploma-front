@@ -1,12 +1,9 @@
 {
-  "name": "gogo-react",
-  "version": "4.0.0",
-  "description": "Gogo - React Bootstrap 4 Admin Dashboard Template",
+  "name": "isDiploma modified by GennadySX",
+  "version": "1.0.0",
+  "description": "isDiploma - modified by GennadySX",
   "private": true,
   "dependencies": {
-    "@firebase/app": "^0.6.3",
-    "@firebase/auth": "^0.14.5",
-    "@firebase/database": "^0.6.2",
     "availity-reactstrap-validation": "^2.0.4",
     "axios": "^0.18.0",
     "chart.js": "^2.7.2",
