@@ -3,9 +3,9 @@ import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import AppLayout from "../../layout/AppLayout";
 import ProfilePage from "../user/profile";
-import SurveyApp from "./applications/survey";
-import TaskApp from "./applications/task";
-import Chat from "./applications/chat";
+import SurveyApp from "./survey";
+import TaskApp from "./task";
+import Chat from "./chat";
 import openSocket from "socket.io-client";
 import {Api} from "../../constants/API";
 
@@ -58,5 +58,4 @@ const mapStateToProps = ({ menu }) => {
   return { containerClassnames };
 };
 
-export default withRouter(App
-);
+export default withRouter(App);

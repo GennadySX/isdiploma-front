@@ -16,7 +16,6 @@ import IntlMessages from "../../helpers/IntlMessages";
 
 import UserCard from "../../components/UserCard";
 
-import {addSurveyItem} from "../../redux/actions";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
 class AddNewSurveyModal extends Component {
@@ -48,7 +47,6 @@ class AddNewSurveyModal extends Component {
             category: this.state.category.value,
             status: this.state.status
         };
-        this.props.addSurveyItem(newItem);
         this.props.toggleModal();
         this.setState({
             title: "",
@@ -171,7 +169,5 @@ const mapStateToProps = ({surveyListApp}) => {
 };
 export default connect(
     mapStateToProps,
-    {
-        addSurveyItem
-    }
+    { }
 )(AddNewSurveyModal);
