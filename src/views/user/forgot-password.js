@@ -42,7 +42,7 @@ export default class ForgotPassword extends Component {
 
                 <div className="d-flex justify-content-end align-items-center">
                   <Button
-                    href="/app"
+                    href="/home"
                     color="primary"
                     className="btn-shadow"
                     size="lg"

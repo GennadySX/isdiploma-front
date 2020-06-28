@@ -114,7 +114,7 @@ class ChatApplicationMenu extends Component {
 
             <div className="pt-2 pr-4 pl-4 pb-2">
 
-              {
+              {this.props.roomlist &&
                     this.props.roomlist.filter(room => room.members.includes(this.props.user._id)).map((chat, index) => {
                       const friend = chat.members.filter(member => member !== this.props.user._id)[0]
                       const chatUser = this.props.friendlist.filter(x => x._id === friend )[0]
@@ -133,7 +133,7 @@ class ChatApplicationMenu extends Component {
                         >
                           <img
                               alt={''}
-                              src={"/assets/img/profile-pic-l-11.jpg"}
+                              src={"/assets/img/avatar.png"}
                               className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
                           />
                           <div className="d-flex flex-grow-1 min-width-zero">
@@ -178,7 +178,7 @@ class ChatApplicationMenu extends Component {
                               }}>
                             <img
                                 alt={''}
-                                src={"/assets/img/gennadysx.jpg"}
+                                src={"/assets/img/avatar.png"}
                                 className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
                             />
                             <div className="d-flex flex-grow-1 min-width-zero">
@@ -210,7 +210,7 @@ class ChatApplicationMenu extends Component {
                 </StateButton>
               </div>
               <div className="pt-2 pr-4 pl-4 pb-2">
-                {
+                {this.props.roomlist &&
                   this.props.roomlist.filter(room => room.type === 'project').map((chat, index) => {
                     return (
                         <div
@@ -227,7 +227,7 @@ class ChatApplicationMenu extends Component {
                           >
                             <img
                                 alt={''}
-                                src={"/assets/img/profile-pic-l-11.jpg"}
+                                src={"/assets/img/avatar.png"}
                                 className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
                             />
                             <div className="d-flex flex-grow-1 min-width-zero">

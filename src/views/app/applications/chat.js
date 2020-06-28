@@ -59,7 +59,10 @@ class ChatApp extends Component {
             this.setState({
                 user: JSON.parse(user),
                 friendlist: friends.data
-            }, () => {})
+            }, () => {
+                console.log('friend list', this.state)
+
+            })
         })
         this.props.client.emit('getFriendList')
     };
@@ -68,14 +71,16 @@ class ChatApp extends Component {
     getGroups = async () => {
         await this.props.client.on('roomList', roomList => {
             //console.log('roomList is', roomList)
-            this.joinIt(roomList.data[0])
+            if (roomList.data[0]) {
+                this.joinIt(roomList.data[0])
 
-            this.setState({
-                roomList: roomList.data,
-                init: true,
-                room: roomList.data[0],
-                messageList: roomList.data[0].messageList
-            })
+                this.setState({
+                    roomList: roomList.data,
+                    init: true,
+                    room: roomList.data[0],
+                    messageList: roomList.data[0].messageList
+                })
+            }
         })
         this.props.client.emit('get_room_list')
 
@@ -216,7 +221,7 @@ class ChatApp extends Component {
                             />
                         </Colxx>
                     </Row>
-                    {this.state.friendlist && this.state.init && this.state.user ?
+                    {this.state.friendlist  && this.state.user ?
                         <ChatApplicationMenu
                             openRoom={(room) => this.openRoom(room)}
                             chatChoise={(friend) => this.checkFriendRoom(friend)}
@@ -229,7 +234,9 @@ class ChatApp extends Component {
                     }
                 </Fragment>
             ) : (
+                <>
                 <div className="loading"></div>
+                    </>
             );
     }
 }

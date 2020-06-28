@@ -27,7 +27,7 @@ const UserCardExamples = () => {
           <Card className="mb-4">
             <CardBody>
               <div className="text-center">
-                <CardImg top src="/assets/img/profile-pic-l.jpg" alt="Card image cap" className="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail" />
+                <CardImg top src="/assets/img/avatar.png" alt="Card image cap" className="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail" />
                 <NavLink to="/app/ui/cards">
                   <CardSubtitle className="mb-1">Sarah Kortney</CardSubtitle>
                 </NavLink>

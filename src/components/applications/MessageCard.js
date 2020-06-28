@@ -16,7 +16,7 @@ const MessageCard = ({ sender, item, currentUserid, senderUser }) => {
           <div className="d-flex flex-row pb-1">
             <img
               alt={"No name"}
-              src={'/assets/img/profile-pic-l-11.jpg'}
+              src={'/assets/img/avatar.png'}
               className="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall"
             />
             <div className=" d-flex flex-grow-1 min-width-zero">

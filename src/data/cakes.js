@@ -1,99 +1,99 @@
 const cakes = [
   {
     title: 'Marble Cake',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Fruitcake',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Chocolate Cake',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Fat Rascal',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Financier',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Genoise',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Gingerbread',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Goose Breast',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Parkin',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Salzburger Nockerl',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Soufflé',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Merveilleux',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Streuselkuchen',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Tea Loaf',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Napoleonshat',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Merveilleux',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Magdalena',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Cremeschnitte',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Cheesecake',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Bebinca',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Fruitcake',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Chocolate Cake',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Fat Rascal',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   },
   {
     title: 'Streuselkuchen',
-    link: '/app/pages/details'
+    link: '/home/pages/details'
   }
 ]
 export default cakes

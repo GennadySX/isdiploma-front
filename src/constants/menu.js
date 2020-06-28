@@ -4,14 +4,14 @@ const data = [
     icon: "simple-icon-bubbles",
     label: "menu.chat_page",
     title: "Чат",
-    to: "/app/applications/chat",
+    to: "/home/applications/chat",
   },
   {
     id: "projects",
     icon: "simple-icon-layers",
     label: "menu.projects",
     title: "Проекты",
-    to: "/app/applications/project",
+    to: "/home/applications/project",
 
   },
   {
@@ -19,13 +19,13 @@ const data = [
     icon: "simple-icon-pin",
     label: "menu.tasks",
     title: "Задачи",
-    to: "/app/applications/task"
+    to: "/home/applications/task"
   },
   {
     id: "menu",
     icon: "simple-icon-user",
     label: "menu.profile",
-    to: "/app/profile",
+    to: "/home/profile",
     title: "Профиль",
   },/*
   {

@@ -15,16 +15,17 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "Jim",
-      lastName: "Carrey",
-      login: "jimCarrey",
-      email: "jim@mail.com",
-      password: "inmail00",
-      c_password: "inmail00",
+      firstName: "",
+      lastName: "",
+      login: "",
+      email: "",
+      password: "",
+      c_password: "",
       err: ''
     };
   }
   onUserRegister() {
+    console.log('state is', this.state)
     if (this.state.email !== "" && this.state.password !== "" && this.state.password !== "") {
       this.registerIt()
     }
@@ -33,7 +34,7 @@ class Register extends Component {
   registerIt() {
     axios.post(Api.register, this.state).then(res => {
       if (res.data && res.data.user) {
-        window.location.href = '/user/login'
+        this.props.history.push('/auth/login')
       }else {
         this.setState({err: 'Не правильные запольненые поля или такой аккаунт уже зарегистрован'}, () => {
           setTimeout(() => this.setState({err: null}), 5000)
@@ -57,7 +58,7 @@ class Register extends Component {
                 Пожалуйста, используйте ваши учетные данные для входа.
                 <br />
                 Если у вас есть аккуанта,
-                <NavLink to={`/user/login`} className="white">
+                <NavLink to={`/auth/login`} className="white">
                   <h2>Авторизуйтесь</h2>
                 </NavLink>
                 пожалуйста.
@@ -75,25 +76,37 @@ class Register extends Component {
                 <IntlMessages id="user.register" />
               </CardTitle>
               <Form>
-                <Label className="form-group has-float-label mb-4 justify-content-between d-flex ">
-                  <input type="name" value={this.state.firstName}
-                         onChange={(e) => this.setState({firstName: $(e.target).val()}) }
-                         className={' col-5 p-2 '} style={{borderColor: 'gray'}} placeholder={'Ваше имя'}/>
-                  <input type="name"
-                         onChange={(e) => this.setState({lastName: $(e.target).val()}) }
-                         value={this.state.lastName}  className={'col-5'} style={{borderColor: 'gray'}} placeholder={'Ваша фамилия'}/>
-                  <IntlMessages id="user.fullname" />
+                <div className="d-flex justify-content-between col-md-12 p-0 pl-0">
+                <Label className="form-group col-6 pl-0 has-float-label">
+                  <Input type="name" value={this.state.firstName}
+                         onChange={(e) => this.setState({firstName: e.target.value}) }
+                         className={' col-md-12 '}  />
+                  <IntlMessages id="user.firstName" />
                 </Label>
+                  <Label className="form-group col-6 pl-0 pr-0 mb-4 has-float-label">
+                  <Input type="name"
+                         onChange={(e) => this.setState({lastName: e.target.value}) }
+                         value={this.state.lastName}
+                         className={'col-12'} placeholder={'Ваша фамилия'}/>
+                  <IntlMessages id="user.lastName" />
+                </Label>
+                </div>
                 <Label className="form-group has-float-label mb-4">
-                  <Input type="email" defaultValue={this.state.login} />
+                  <Input type="text"
+                         onChange={(e) => this.setState({login: e.target.value})}
+                         defaultValue={this.state.login} />
                   <IntlMessages id="user.login" />
                 </Label>
                 <Label className="form-group has-float-label mb-4">
-                  <Input type="email" defaultValue={this.state.email} />
+                  <Input type="email"
+                         name={'email'}
+                         onChange={(e) => this.setState({email: e.target.value})}
+                         defaultValue={this.state.email} />
                   <IntlMessages id="user.email" />
                 </Label>
                 <Label className="form-group has-float-label mb-4">
                   <Input type="password"
+                         onChange={(e) => this.setState({password: e.target.value}) }
                          defaultValue={this.state.password}
                   />
                   <IntlMessages
@@ -102,6 +115,7 @@ class Register extends Component {
                 </Label>
                 <Label className="form-group has-float-label mb-4">
                   <Input type="password"
+                         onChange={(e) => this.setState({c_password: e.target.value}) }
                          defaultValue={this.state.c_password}
                   />
                   <IntlMessages

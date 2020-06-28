@@ -7,7 +7,6 @@ import {
   Redirect
 } from "react-router-dom";
 import { IntlProvider } from "react-intl";
-import "./helpers/Firebase";
 import AppLocale from "./lang";
 import ColorSwitcher from "./components/common/ColorSwitcher";
 import NotificationContainer from "./components/common/react-notifications/NotificationContainer";
@@ -31,7 +30,7 @@ const AuthRoute = ({ component: Component, authUser,  client, ...rest }) => (
         <Redirect
           to={{
               client: client,
-            pathname: "/user/login",
+            pathname: "/auth/login",
             state: { from: props.location }
           }}
         />
@@ -65,8 +64,8 @@ class App extends Component {
             {isMultiColorActive && <ColorSwitcher />}
             <Router>
               <Switch>
-                <AuthRoute path="/app" authUser={loginUser} component={app} client={this.state.ioSocket} />
-                <Route path="/user" component={user} />
+                <AuthRoute path="/home" authUser={loginUser} component={app} client={this.state.ioSocket} />
+                <Route path="/auth" component={user} />
                 <Route path="/error" exact component={error} />
                 <Route path="/" exact component={main} />
                 <Redirect to="/error" />

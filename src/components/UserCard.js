@@ -22,7 +22,7 @@ export default class UserCard extends React.Component{
                     e.preventDefault()
                     this.props.onClick(this.props.user)
                 }}>
-                    <img alt="profile"  src="/assets/img/profile-pic-l.jpg" className="img-thumbnail list-thumbnail align-self-center m-4  rounded-circle small" /></div>
+                    <img alt="profile"  src="/assets/img/avatar.png" className="img-thumbnail list-thumbnail align-self-center m-4  rounded-circle small" /></div>
                 <div className=" d-flex flex-grow-1 min-width-zero">
                     <div
                         className=" pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero card-body">
