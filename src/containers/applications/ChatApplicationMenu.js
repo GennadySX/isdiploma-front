@@ -36,6 +36,13 @@ class ChatApplicationMenu extends Component {
   };
 
 
+  messageSlice(message) {
+    if (message.toString().length > 40) {
+      return message.toString().slice(1,32)+'...'
+    }
+    return message
+  }
+
 
   render() {
     const { messages } = this.props.intl;
@@ -144,7 +151,7 @@ class ChatApplicationMenu extends Component {
                                       <span>{chatUser.firstName} {chatUser.lastName}</span> : null}
                                 </p>
                                 <div className="">
-                                  <small className={'col-md-8 pl-0'}>{chat.messageList.length ? chat.messageList[chat.messageList.length-1].text : null}</small>
+                                  <small className={'col-md-8 pl-0'}>{chat.messageList.length ? this.messageSlice(chat.messageList[chat.messageList.length-1].text) : null}</small>
                                 </div>
                               </div>
                             </div>

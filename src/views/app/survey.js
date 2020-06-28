@@ -86,16 +86,6 @@ class SurveyApp extends Component {
         });
     };
 
-    toggleSplit = () => {
-        this.setState(prevState => ({
-            dropdownSplitOpen: !prevState.dropdownSplitOpen
-        }));
-    };
-
-    changeOrderBy = column => {
-        this.props.getSurveyListWithOrder(column);
-    };
-
     handleKeyPress = e => {
         if (e.key === "Enter") {
             this.props.getSurveyListSearch(e.target.value);

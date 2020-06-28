@@ -39,14 +39,14 @@ const SurveyListItem = ({ item, handleCheckChange, isSelected }) => {
             </div>
           </CardBody>
           <div className="custom-control custom-checkbox pl-1 align-self-center pr-4">
-            <CustomInput
+            {/*<CustomInput
               className="itemCheck mb-0"
               type="checkbox"
               id={`check_${item._id}`}
               checked={isSelected}
               onChange={event => handleCheckChange(event, item._id)}
               label=""
-            />
+            />*/}
           </div>
         </div>
       </Card>
