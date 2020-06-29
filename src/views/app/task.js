@@ -73,6 +73,14 @@ class TaskApp extends Component {
     }
 
 
+    del(cardId) {
+        const task = {_id: cardId}
+        this.socket.on('on_taskDelete_confirm', task => {
+            console.log('deleted confirm ', task)
+        })
+        this.socket.emit('emit_taskDelete', task)
+    }
+
 
     render() {
         return !this.state.loading ?
@@ -92,15 +100,8 @@ class TaskApp extends Component {
                                    draggable
                                    hideCardDeleteIcon={false}
                                    onCardAdd={(card, laneId) => this.addCard(card, laneId)}
-
-                                // canAddLanes
-                                   handleDragEnd={(cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
-                                       console.log('card id', cardId)
-                                       console.log('sourceLaneId', sourceLaneId)
-                                       console.log('targetLaneId', targetLaneId)
-                                       console.log('cardDetails', cardDetails)
-                                       this.moved({_id: cardId},targetLaneId)
-                                   }}
+                                   handleDragEnd={(cardId, sourceLaneId, targetLaneId) =>  this.moved({_id: cardId},targetLaneId)}
+                                   onCardDelete={(cardId) => this.del(cardId)}
                             />
                         }
                     </Row>
