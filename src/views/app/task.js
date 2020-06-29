@@ -7,6 +7,7 @@ import {Colxx} from "../../components/common/CustomBootstrap";
 
 import {taskData} from "../../data/ATask";
 import TaskHeader from "../../components/task/header";
+import {tasker} from "../../helpers/TaskRelease";
 
 
 class TaskApp extends Component {
@@ -15,11 +16,35 @@ class TaskApp extends Component {
         this.state = {
             menuActiveTab: "messages",
             messageInput: "",
-            loading: false
-        };
+            loading: false,
+            taskList: null
+        }
         this._scrollBarRef = window.innerHeight
         this.socket = this.props.client
     }
+
+
+
+        componentDidMount() {
+        this.getTaskList()
+        }
+
+
+
+    getTaskList = () => {
+        this.socket.on('taskList', (taskList) => {
+            tasker(taskList.data).then(res => {
+                console.log('task list get ', res)
+                this.setState({
+                    taskList:  res
+                })
+            })
+
+        })
+            this.socket.emit('emit_taskList')
+
+        }
+
 
 
 
@@ -36,8 +61,15 @@ class TaskApp extends Component {
             description: card.description,
             creator: '5eec5b3b89af370378db7597'
         })
+    }
 
 
+
+    moved(task, type) {
+        this.socket.on('on_taskMoved_confirm', task => {
+            console.log('moved confirm ', task)
+        })
+        this.socket.emit('emit_taskMoved', task, type)
     }
 
 
@@ -52,19 +84,25 @@ class TaskApp extends Component {
                             <TaskHeader
                                 {...this.props}
                             />
-                        <Board data={taskData}
-                               style={{backgroundColor: 'transparent'}}
-                               lang={'ru'}
-                               editable
-                               draggable
-                               hideCardDeleteIcon={false}
-                               onCardAdd={(card, laneId) => this.addCard(card, laneId)}
+                        {this.state.taskList &&
+                            <Board data={this.state.taskList}
+                                   style={{backgroundColor: 'transparent'}}
+                                   lang={'ru'}
+                                   editable
+                                   draggable
+                                   hideCardDeleteIcon={false}
+                                   onCardAdd={(card, laneId) => this.addCard(card, laneId)}
 
-                               // canAddLanes
-                               handleDragEnd={(cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
-                                    console.log('card id', sourceLaneId)
-                               }}
-                        />
+                                // canAddLanes
+                                   handleDragEnd={(cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
+                                       console.log('card id', cardId)
+                                       console.log('sourceLaneId', sourceLaneId)
+                                       console.log('targetLaneId', targetLaneId)
+                                       console.log('cardDetails', cardDetails)
+                                       this.moved({_id: cardId},targetLaneId)
+                                   }}
+                            />
+                        }
                     </Row>
                 </Fragment>
             ) : (
