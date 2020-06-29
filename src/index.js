@@ -12,5 +12,12 @@ const color =
 
 localStorage.setItem("themeColor", color);
 
-require("./assets/css/sass/themes/gogo." + color + ".scss");
+require("./assets/css/sass/themes/gogo.light.blue.scss");
+require("./assets/css/sass/themes/gogo.dark.blue.scss");
+
+if(color === 'dark.blue') {
+    require("./assets/css/sass/themes/gogo.dark.blue.scss");
+} else {
+    require("./assets/css/sass/themes/gogo.light.blue.scss");
+}
 require("./AppRenderer");

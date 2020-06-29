@@ -3,12 +3,12 @@ import { Row, Card, CardTitle, Form, Label, Input, Button } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
-import IntlMessages from "../../helpers/IntlMessages";
-import { Colxx } from "../../components/common/CustomBootstrap";
+import IntlMessages from "../helpers/IntlMessages";
+import { Colxx } from "../components/common/CustomBootstrap";
 
 import $ from 'jquery'
 import axios from 'axios'
-import {Api} from "../../constants/API";
+import {Api} from "../constants/API";
 
 class Register extends Component {
   constructor(props) {
@@ -140,9 +140,6 @@ class Register extends Component {
     );
   }
 }
-const mapStateToProps = ({ authUser }) => {
-  const { user, loading } = authUser;
-  return { user, loading };
-};
 
-export default connect(Register);
+
+export default Register;

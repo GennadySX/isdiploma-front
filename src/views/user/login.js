@@ -47,7 +47,7 @@ class Login extends Component {
                                 Пожалуйста, используйте ваши учетные данные для входа.
                                 <br/>
                                 Если у вас нет аккуанта,
-                                <NavLink to={`/auth/register`} className="white">
+                                <NavLink to={`/user/register`} className="white">
                                     <h2>Зарегиструйтесь</h2> пожалуйста.
                                 </NavLink>
 
@@ -76,7 +76,7 @@ class Login extends Component {
                                     />
                                 </Label>
                                 <div className="d-flex justify-content-between align-items-center">
-                                    <NavLink to={`/auth/register`}>
+                                    <NavLink to={`/user/register`}>
                                         <IntlMessages id="user.register"/>
                                     </NavLink>
                                     <Button
@@ -97,9 +97,5 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = ({authUser}) => {
-    const {user, loading} = authUser;
-    return {user, loading};
-};
 
 export default Login

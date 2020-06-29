@@ -46,6 +46,7 @@ class App extends Component {
                 <Route path="/home" component={app} />
                 <Route path="/user" component={user} />
                 <Route path="/error" exact component={error} />
+                <Redirect from={'/'} to="/home/chat" />
                 <Redirect to="/error" />
               </Switch>
             </Router>
